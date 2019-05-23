@@ -1,0 +1,79 @@
+<ion-header  >
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Início
+    </ion-title>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="bg">
+    <div class="container">
+
+        <div class="row  p-4" >
+            <div class="col-sm text-white text-center">
+              <h4>Olá, {{aluno.nome}}</h4>  
+              <h1>Seja bem-vindo(a) ao novo portal do aluno.</h1>  
+            </div>
+        </div>
+
+      <div class="row  p-3">
+        <div class="col-sm">
+
+
+
+
+          <a [routerLink]="['/boletim']">
+            <ion-card>
+              <img src="../../assets/boletim.png">
+              <ion-card-content>
+               Agora você já pode emitir seus boletins acadêmicos com facilidade
+              </ion-card-content>
+            </ion-card>
+          </a>
+
+
+
+        </div>
+        <div class="col-sm">
+
+          <a [routerLink]="['/mensalidade']">
+            <ion-card>
+              <img src="../../assets/pagamentos.png">
+              <ion-card-content>
+                Acesse todos os seus pagamentos e emita seus boletos em um só lugar.
+              </ion-card-content>
+            </ion-card>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- <div class="row alert alert-info" style="margin-top: 4%" >      
+          <div class="col-sm text-center">
+            <h4>Em breve as novas funcionalidades estarão no ar.
+              </h4>  
+            <h4>Para mais informações ligue para: (91) 3222-1317</h4>  
+          </div>
+      </div> -->
+
+      <!-- <div class="row alert alert-warning" >      
+        <div class="col-sm text-center">
+          <h4>COMUNICADO: O portal do aluno está em fase de teste. Em caso de divergências de informações  
+            </h4>  
+          <h4>Favor enviar com MATRICULA para o e-mail: <a href="email:suporte@esamaz.com.br" >suporte@esamaz.com.br</a></h4>  
+        </div>
+    </div> -->
+    
+
+    </div>
+
+  </div>
+
+
+</ion-content>
