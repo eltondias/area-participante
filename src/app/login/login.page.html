@@ -11,7 +11,7 @@
         <ion-card>
           <ion-header class="header" >
             <ion-toolbar>
-              <ion-title class="text-center">Faça seu login</ion-title>
+              <ion-title class="text-center">Área do participante</ion-title>
             </ion-toolbar>
           </ion-header>
 
@@ -20,12 +20,12 @@
             <form id=formId (ngSubmit)="login()" #refForm="ngForm">
               <ion-item class="mb-2">
                 <ion-label position="floating">Usuário</ion-label>
-                <ion-input placeholder="Matrícula" name="matricula" [(ngModel)]="aluno.matric" required></ion-input>
+                <ion-input placeholder="Login" name="login" [(ngModel)]="voluntario.login" required></ion-input>
               </ion-item>
 
               <ion-item class="mb-4">
                 <ion-label position="floating">Senha</ion-label>
-                <ion-input placeholder="CPF" type="password" name="cpf" [(ngModel)]="aluno.numcpf" required></ion-input>
+                <ion-input placeholder="Senha" type="password" name="senha" [(ngModel)]="voluntario.senha" required></ion-input>
               </ion-item>
 
               <ion-button class="mb-3" type="ngSubmit" expand="block" color="success" [disabled]="!refForm.valid">Entrar

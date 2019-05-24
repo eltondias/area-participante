@@ -6,10 +6,12 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { UtilProvider } from './services/util';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
+import { environment } from 'src/environments/environment';
+import { InterceptorModule } from './services/interceptor.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +22,8 @@ import { MaterialModule } from './material.module';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    InterceptorModule
   ],
   providers: [
     StatusBar,
@@ -30,4 +33,19 @@ import { MaterialModule } from './material.module';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  authToken = localStorage.getItem('auth_token');
+
+  constructor (
+    private http: HttpClient
+  ) {
+
+    if (this.authToken === null ) {
+      this.http.post<any[]>(environment.URL_API+'api/' +  'authenticate', {'password': 'admin', 'rememberMe': true, 'username': 'admin'
+      }).subscribe((token: any) => {
+        localStorage.setItem('auth_token', token.id_token);
+      });
+    }
+
+  }
+}

@@ -1,3 +1,4 @@
+import { Voluntario, EstadoVoluntarioEnum } from './../model/voluntario.model';
 import { UtilProvider } from './../services/util';
 import { Aluno } from './../model/Aluno';
 import { AlunoService } from './../services/aluno.service';
@@ -7,6 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthGuardService } from '../auth-guard.service';
 import { SemestreService } from '../services/semestre.service';
+import { VoluntarioService } from '../services/voluntario.service';
 
 @Component({
   selector: 'app-login',
@@ -17,10 +19,10 @@ export class LoginPage implements OnInit {
 
   erroLogin = false;
   erroAutenticacao = false;
-  aluno = new Aluno();
+  voluntario =  new Voluntario();
 
   constructor(
-    private alunoService: AlunoService,
+    private voluntarioService: VoluntarioService,
     private semestreService: SemestreService,
     public loadingController: LoadingController,
     public util: UtilProvider,
@@ -30,8 +32,10 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() { 
-    const aluno = localStorage.getItem('aluno');
-    if (aluno) {
+ 
+
+    const voluntario = localStorage.getItem('voluntario');
+    if (voluntario) {
       this.router.navigate(['home']);
       return false;
     }
@@ -43,14 +47,14 @@ export class LoginPage implements OnInit {
     this.erroLogin = false;
 
     const retorno = this.util.loading('Autenticando...', 2000);
-    this.alunoService.login({ matricula: this.aluno.matric, cpf: this.aluno.numcpf }).subscribe(
+
+    this.voluntarioService.login(this.voluntario).subscribe(
       (res) => {                    
         setTimeout(() => {
           if (res.body) {
-            this.aluno = res.body;
-            this.getSemestres();
-            localStorage.setItem('aluno', JSON.stringify(this.aluno));
-            console.log(this.aluno);                            
+            this.voluntario = res.body;
+            localStorage.setItem('voluntario', JSON.stringify(this.voluntario));
+            console.log(this.voluntario);                            
             this.authGuard.authEmitter.emit(true);
           } else {
             this.erroAutenticacao = true;
@@ -66,15 +70,5 @@ export class LoginPage implements OnInit {
     );
   }
 
-  getSemestres(){
-    this.semestreService.getSemestres({matricula: this.aluno.matric}).subscribe(res => {
-      console.log(res);
-      if(res.body) {        
-        localStorage.setItem('semestres', JSON.stringify(res.body));
-        window.location.reload();
-      }      
-    });
-  }
-
-
+   
 }
